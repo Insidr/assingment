@@ -8,7 +8,7 @@ class Student:
         self.grade = grade
     
     def display_student(self):
-        print(f"Student ID: {self.student_id}")
+        print(f"Student_id: {self.student_id}")
         print(f"Name: {self.name}")
         print(f"Age: {self.age}")
         print(f"Grade: {self.grade}")
@@ -32,6 +32,7 @@ def read_from_file():
         try:
             with open("student_records.txt", "r") as file:
                 for line in file:
+                    print("line------>",line)
                     student_id, name, age, grade = line.strip().split(",")
                     student = Student(int(student_id), name, int(age), float(grade))
                     students.append(student)
@@ -45,7 +46,10 @@ def update_a_record(student_id, new_name, new_age, new_grade):
     students = read_from_file()
     flag = False
     for student in students:
+
+
         if student.student_id == student_id:
+
             student.update_student(new_name, new_age, new_grade)
             flag = True
             break
@@ -53,17 +57,19 @@ def update_a_record(student_id, new_name, new_age, new_grade):
         try:
             with open("student_records.txt", "w") as file:
                 for student in students:
+                    # print("list---->",student)
                     file.write(f"{student.student_id},{student.name},{student.age},{student.grade}\n")
             print(f"Student with ID {student_id} updated.")
         except Exception as e:
             print(f"An error occurred: {e}")
     else:
-        print(f"Student with ID {student_id} not found.")
+        print(f"student with ID {student_id} not found.")
 
 def display_all_records():
     students = read_from_file()
     if students:
         for student in students:
+            # print("hssggs---->",student)
             student.display_student()
     else:
         print("record not found.")
@@ -79,10 +85,10 @@ def main():
         
         if choice == "1":
             
-            student_id = int(input("Enter student ID: "))
-            name = input("Enter student name: ")
-            age = int(input("Enter student age: "))
-            grade = float(input("Enter student grade: "))
+            student_id = int(input("enter student ID: "))
+            name = input("enter student name: ")
+            age = int(input("enter student age: "))
+            grade = float(input("enter student grade: "))
             new_student = Student(student_id, name, age, grade)
             write_to_file(new_student)
                
@@ -90,22 +96,23 @@ def main():
         elif choice == "2":
 
             
-            student_id = int(input("Enter student ID to update: "))
-            name = input("Enter new name: ")
-            age = int(input("Enter student age: "))
-            grade = float(input("Enter new grade (float value): "))
+            student_id = int(input("Enter student id to update: "))
+            name = input("enter new name: ")
+            age = int(input("enter student age: "))
+            grade = float(input("enter new grade (float value): "))
             update_a_record(student_id, name, age, grade)
           
         
         elif choice == "3":
+            print("all the records")
             display_all_records()
         
         elif choice == "4":
-            print("Exiting program.")
+            print("Exit")
             break
         
         else:
-            print("Invalid choice. Please enter 1, 2, 3, or 4.")
+            print("Invalid choice")
 
 if __name__ == "__main__":
     main()
